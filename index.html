@@ -440,11 +440,15 @@ margin-top:4px;
 
 <label>
 <button id="shuffleBtn" onclick="shuffleDeck()">🔀 Shuffle</button>
+</label>
+<label>
 <br><br>
 <input
 type="checkbox"
 id="eventLimit69">
 👪 2-3 Players
+</label>
+<label>
 <input
 type="checkbox"
 id="soundToggle"
@@ -777,7 +781,7 @@ gain.connect(audio.destination);
 
 osc.type = "sawtooth";
 
-gain.gain.value = 0.17;
+gain.gain.value = 0.16;
 
 osc.frequency.setValueAtTime(
 220,
@@ -1068,7 +1072,7 @@ document.getElementById("eventLimit69")
 
 minCardsForEvent = 4;
 
-maxCardsForEvent = 7;
+maxCardsForEvent = 6;
 
 }else{
 
