@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="
+width=device-width,
+initial-scale=1,
+maximum-scale=1,
+user-scalable=no">
+<meta
+name="apple-mobile-web-app-capable"
+content="yes">
+
 <title>WRECK</title>
 
 <div id="intro">
@@ -54,7 +65,8 @@
     display:flex;
     gap:10px;
 
-    font-size:140px;
+    font-size:80px;
+    margin-top:-250px;
     font-family:Impact;
     font-weight:900;
     letter-spacing:8px;
@@ -179,7 +191,7 @@ setTimeout(() => {
         intro.remove();
     }
 
-},1800);
+},3000);
 
 </script>
 
@@ -350,6 +362,42 @@ margin-top:20px;
 display:none;
 }
 
+#cardContainer{
+
+position:relative;
+}
+
+#emptyText{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+transform:
+translate(-50%,-50%);
+
+font-size:80px;
+
+font-weight:bold;
+
+color:#000000;
+
+opacity:0.75;
+
+pointer-events:none;
+
+user-select:none;
+
+transform:
+translate(-50%,-50%)
+rotate(-12deg);
+
+text-shadow:
+0 0 25px #00ff66;
+
+}
 
 </style>
 </head>
@@ -357,6 +405,11 @@ display:none;
 <body>
 
 <div class="viewer">
+<div id="emptyText">
+
+WRECK
+
+</div>
 <img id="mainCard" src="">
 
 <div id="randomOrb" class="normalOrb">
@@ -387,12 +440,16 @@ margin-top:4px;
 
 <label>
 <button id="shuffleBtn" onclick="shuffleDeck()">🔀 Shuffle</button>
-
+<br><br>
 <input
 type="checkbox"
 id="eventLimit69">
-
 👪 2-3 Players
+<input
+type="checkbox"
+id="soundToggle"
+checked>
+🔊 Sound
 </label>
 
 <hr>
@@ -454,7 +511,7 @@ let currentCardIndex = 0;
 let orbHistory = [];
 let eventCards = [];
 let lastEventIndex = -1;
-
+let soundEnabled = true;
 let lastRandom = null;
 let lastEventRandom = null;
 let availableEventNumbers = [];
@@ -471,6 +528,13 @@ const eventInput = document.getElementById("eventInput");
 const eventDeck = document.getElementById("eventDeck");
 const eventCount = document.getElementById("eventCount");
 
+document
+.getElementById("soundToggle")
+.addEventListener("change",function(){
+
+soundEnabled = this.checked;
+
+});
 
 fileInput.addEventListener("change", function(event){
 
@@ -524,6 +588,8 @@ displayEventDeck();
 });
 
 function playBeep(){
+
+if(!soundEnabled) return;
 
 const audio =
 new AudioContext();
@@ -621,9 +687,9 @@ return false;
 
 let cardsSinceEvent = 0;
 
-let minCardsForEvent = 4;
+let minCardsForEvent = 5;
 
-let maxCardsForEvent = 6;
+let maxCardsForEvent = 8;
 
 let nextEventTrigger =
 randomEventTrigger();
@@ -694,6 +760,8 @@ Math.random() *
 
 function playEventSound(){
 
+if(!soundEnabled) return;
+
 const audio =
 new AudioContext();
 
@@ -709,7 +777,7 @@ gain.connect(audio.destination);
 
 osc.type = "sawtooth";
 
-gain.gain.value = 0.2;
+gain.gain.value = 0.17;
 
 osc.frequency.setValueAtTime(
 220,
@@ -834,11 +902,16 @@ displayEventDeck();
 function showCard(index){
 
 if(cards.length === 0){
+document.getElementById("emptyText")
+.style.display = "block";
 mainCard.src = "";
 return;
 }
 
 mainCard.src = cards[index];
+
+document.getElementById("emptyText")
+.style.display = "none";
 }
 
 function generateRandomOrb(){
@@ -993,15 +1066,15 @@ document.getElementById("eventLimit69")
 .checked
 ){
 
-minCardsForEvent = 3;
+minCardsForEvent = 4;
 
-maxCardsForEvent = 5;
+maxCardsForEvent = 7;
 
 }else{
 
-minCardsForEvent = 4;
+minCardsForEvent = 5;
 
-maxCardsForEvent = 6;
+maxCardsForEvent = 8;
 }
 
 nextEventTrigger =
