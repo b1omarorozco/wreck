@@ -214,14 +214,14 @@ width:350px;
 height:500px;
 object-fit:cover;
 border-radius:15px;
-margin-right:10px;
+margin-left:5px;
 }
 
 #memoryBanner{
 
 position:absolute;
 
-top:150px;
+top:200px;
 
 left:50%;
 
@@ -304,7 +304,7 @@ scale(1.05);
 
     transition:0.2s;
 
-    margin-right:10px;
+    margin-left:5px;
 }
 
 .normalOrb{
@@ -317,7 +317,7 @@ scale(1.05);
 
     box-shadow:0 0 18px #00ff66;
 
-    margin-right:10px;
+    margin-left:5px;
 }
 
 .eventOrb{
@@ -330,7 +330,7 @@ scale(1.05);
 
     box-shadow:0 0 18px #ffd000;
 
-    margin-right:10px;
+    margin-left:5px;
 }
 
 #deck,
@@ -495,6 +495,67 @@ display:none;
 position:relative;
 }
 
+#addBox{
+
+position:absolute;
+
+top:100px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:black;
+
+border:3px solid #00ff66;
+
+border-radius:12px;
+
+padding:6px 10px;
+
+min-width:55px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+box-shadow:
+0 0 12px #00ff66;
+
+transition:0.2s;
+
+}
+
+#addLabel{
+
+font-family:Impact;
+
+font-size:18px;
+
+letter-spacing:2px;
+
+color:#00ff66;
+
+margin-bottom:4px;
+}
+
+#orbCubes{
+
+display:flex;
+
+gap:5px;
+
+justify-content:center;
+
+align-items:center;
+
+margin-top:6px;
+}
+
 #emptyText{
 
 position:absolute;
@@ -538,6 +599,8 @@ left:0;
 
 width:350px;
 height:500px;
+
+margin-left:5px;
 
 background:black;
 
@@ -626,12 +689,17 @@ READY!?
 
 <div id="orbNumber"></div>
 
-<div id="orbCubes"
-style="
-display:flex;
-gap:4px;
-margin-top:4px;
-">
+<div id="addBox">
+
+<div id="addLabel">
+
+ADD
+
+</div>
+
+<div id="orbCubes"></div>
+
+</div>
 
 </div>
 
@@ -1352,6 +1420,14 @@ return;
 
 orb.style.display = "flex";
 
+const addBox =
+document.getElementById("addBox");
+
+if(addBox){
+
+addBox.style.display = "flex";
+}
+
 const min =
 parseInt(
 document.getElementById("minNumber").value
@@ -1420,6 +1496,22 @@ document.getElementById("randomOrb");
 orb.className = "eventOrb";
 
 orb.style.display = "flex";
+
+const addBox =
+document.getElementById("addBox");
+
+if(addBox){
+
+addBox.style.display = "flex";
+}
+
+document.getElementById(
+"addBox"
+).style.display = "flex";
+
+document.getElementById(
+"addBox"
+).style.display = "none";
 
 if(availableEventNumbers.length === 0){
 
@@ -1541,6 +1633,18 @@ orb.classList.remove(
 );
 
 orb.classList.add(saved.orbClass);
+
+const addBox =
+document.getElementById("addBox");
+
+if(saved.orbClass === "eventOrb"){
+
+addBox.style.display = "none";
+
+}else{
+
+addBox.style.display = "flex";
+}
 
 document.getElementById("orbNumber")
 .innerText = saved.orbNumber;
@@ -1670,6 +1774,21 @@ orb.classList.remove(
 
 orb.classList.add(saved.orbClass);
 
+const addBox =
+document.getElementById("addBox");
+
+if(
+document.getElementById("randomOrb")
+.classList.contains("eventOrb")
+){
+
+addBox.style.display = "none";
+
+}else{
+
+addBox.style.display = "flex";
+}
+
 /* RESTAURAR NUMERO */
 
 document.getElementById("orbNumber")
@@ -1682,6 +1801,7 @@ document.getElementById("orbCubes")
 .innerHTML =
 saved.cubes;
 }
+
 
 function removeCard(index){
 
