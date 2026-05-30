@@ -658,7 +658,7 @@ opacity:1;
 
 <div id="memoryBanner">
 
-HISTORY MEMORY
+ALREADY PLAYED
 
 </div>
 
@@ -1662,7 +1662,12 @@ return;
 
 currentCardIndex++;
 
-if(currentCardIndex < 6){
+const protectedLimit =
+document.getElementById("eventLimit69").checked
+? 4
+: 6;
+
+if(currentCardIndex < protectedLimit){
 
 while(
 protectedCards.includes(
@@ -1674,7 +1679,7 @@ currentCardIndex++;
 
 if(currentCardIndex >= cards.length){
 
-currentCardIndex = 6;
+currentCardIndex = protectedLimit;
 break;
 }
 }
@@ -1994,7 +1999,12 @@ Math.random() * (i + 1)
 
 /* EVITAR PROTEGIDAS */
 
-for(let i = 0; i < 6; i++){
+const protectedLimit =
+document.getElementById("eventLimit69").checked
+? 4
+: 6;
+
+for(let i = 0; i < protectedLimit; i++){
 
 if(
 protectedCards.includes(cards[i])
